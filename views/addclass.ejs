@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>注册</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="style/adminStyle.css" rel="stylesheet" type="text/css" />
+ <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+ <div class="wrap">
+  <div class="page-title">
+    <span class="modular fl"><i class="user"></i><em>添加课程</em></span>
+  </div>
+  <table class="noborder">
+   <tr>
+    <td width="15%" style="text-align:right;">课程名称：</td>
+    <td><input type="text" id="name" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">任课教师：</td>
+    <td><input type="text" id="teacher" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">上课地点：</td>
+    <td><input type="text" id="place"   class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">上课时间：</td>
+    <td><input type="text" id="time"   class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">学分：</td>
+    <td><input type="text" id="credit"  class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">所属学院：</td>
+    <td><input type="text" id="acd"   class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">年级：</td>
+    <td><input type="text" id="grade"   class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">坐标：</td>
+    <td><input type="text" id="location"  class="textBox length-middle"/>
+     </td>
+   </tr>
+   <tr>
+   <td style="text-align:right;">id：</td>
+   <td><input  type="text" id="id"  class="textBox length-middle"/>
+    <input hidden type="text" id="s" value="<%=status%>"  class="textBox length-middle"/>
+   </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;"></td>
+    <td><input type="button" id="submit" class="tdBtn" value="添加课程"/></td>
+   </tr>
+  </table>
+ </div>
+</body>
+<script>
+    var status=$("#s").val();
+    if(status==0){
+        alert('权限错误,无权查看');
+        location.href="main.html"
+    }
+
+ $("#submit").click(function(){
+     if($("#name").val()==""||$("#teacher").val()==""||$("#acd").val()==""||$("#grade").val()==""||$("#credit").val()==""||$("#location").val()==""||$("#time").val()==""
+         ||$("#place").val()==""||$("#id").val()==""){
+         alert("课程信息不完整，请完善课程信息")
+     }
+     else {
+         $.post("/doaddclasses", {
+             "name": $("#name").val(),
+             "teacher": $("#teacher").val(),
+             "acd": $("#acd").val(),
+             "grade": $("#grade").val(),
+             "credit": $("#credit").val(),
+             "location": $("#location").val(),
+             "time": $("#time").val(),
+             "place": $("#place").val(),
+             "id": $("#id").val()
+         }, function (info) {
+             if (info == -1) {
+                 alert("id重复，请修改id");
+             } else if (info == -2) {
+                 alert("该课程已存在")
+             } else {
+                 alert("添加成功")
+                 location.href = "/allclasses"
+             }
+         })
+     }
+ })
+ </script>
+</html>

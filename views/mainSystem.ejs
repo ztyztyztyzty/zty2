@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--ctrl+/HTML注释-->
+<!--标签：双标签/单标签-->
+<!--行内标签/块级标签-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>袁洋</title>
+    <!--<link>加载外部资源-->
+    <link rel="short icon" href="Resource/icon.png">
+    <!--stylesheet加载外部样式表-->
+    <link href="css/ExternalStyle.css" rel='stylesheet' type='text/css' />
+    <style>
+        .course{
+            border:3px solid #cccccc;
+            width: 90%;
+            margin: 10px;
+            border-radius: 5px;
+            /*竖直居中*/
+            line-height: 50px;
+
+        }
+        /*成行标签写法：display:table; width=需求值*/
+        ul{
+            display: table;
+            width: 100%;
+            background: #ffe97d;
+            height: 100px;
+            margin-bottom: 10px;
+
+        }
+        /*成列标签：display:table-cell; width=需求值*/
+        ul li{
+            display: table-cell;
+            width: 50%;
+            text-align: left;
+            vertical-align: middle;
+
+        }
+        /*.first_ul {*/
+            /*margin-top: -6px;*/
+        /*}*/
+        .left_li{
+            text-align: center;
+            width: 40%;
+        }
+        ul li span{
+            display: block;
+        }
+
+    </style>
+</head>
+
+<body>
+<!--语义化标签-->
+
+<header class="DS_header">
+    <!--第一部分-->
+    <span>选课系统</span>
+</header>
+
+<section class="DS_second_section">
+    <!--第二部分-->
+    <img id="bannerImg" src="#" alt="哥，请检查你的网络">
+    <script>
+        <!--图片轮播-->
+        var bannerImg = document.getElementById("bannerImg");
+        var imgNember = 1;
+        function changeImg() {
+            imgNember++;
+            if(imgNember>3){
+                imgNember = 1;
+            }
+            bannerImg.src = "images/banner-" + imgNember + ".png";
+        }
+        setInterval(changeImg,3000);
+    </script>
+</section>
+
+<div class="course">
+    <!--<span>选择相应年级</span>-->
+    <!--<select id="grade">-->
+        <!--<option id="all" value="">所有</option>-->
+        <!--<option id="grade1" value="大一">大一</option>-->
+        <!--<option id="grade2" value="大二">大二</option>-->
+        <!--<option id="grade3" value="大三">大三</option>-->
+        <!--<option id="grade4" value="大四">大四</option>-->
+    <!--</select>-->
+    <!--第三部分-->
+    <li><span style="float: left"> 总课数：</span><span  id="account"> <%= arr.length%></span></li>
+    <% for(var i=0;i<arr.length;i++){%>
+    <ul class="first_ul" id="first">
+    <li>
+         <span style="float: left"> 课程：</span><span  id="course<%= i%>"> <%= arr[i].name%></span>
+        <span style="float: left">老师：</span><span  id="teacher<%= i%>"> <%= arr[i].password%></span>
+        <span style="float: left">时间：</span><span  id="time<%= i%>"> <%= arr[i].acd%></span>
+        <span style="float: left">地点：</span><span  id="place<%= i%>"><%= arr[i].grade%></span>
+        <span style="float: left">学分：</span><span  id="credit<%= i%>"><%= arr[i].level%></span>
+        </li>
+        <li class="left_li" id="left">
+            <input type="checkbox" id="1<%= i%>">
+            <span>点击选择</span>
+        </li>
+    </ul>
+<%}%>
+    <button class="chooseFruit">购买</button>
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".chooseFruit").click(function () {
+        //     var brr = new Array();
+        //     $("input[type='checkbox']:checked").each(function (i) {
+        //        // brr[i] = document.getElementById(i).innerHTML;
+        //         var coursename = document.getElementsByTagName('li')[0].innerHTML
+        //         alert(i)
+        //     })
+        // })
+        var brr=new Array();
+        var j=0;
+        var l= parseInt(document.getElementById('account').innerHTML)
+        for (var i = 0; i < l; i++) {
+            var status = document.getElementById('1'+i);
+            if(status.checked==true){
+                alert(i)
+                var coursename=document.getElementById('course'+i).innerHTML;
+                var teacher=document.getElementById('teacher'+i).innerHTML;
+                var time=document.getElementById('time'+i).innerHTML;
+                var place=document.getElementById('place'+i).innerHTML;
+                var credit=document.getElementById('credit'+i).innerHTML;
+                brr[j]={"coursename":coursename,"teacher":teacher,"time":time,"place":place,"credit":credit}
+                j++;
+            }
+        }
+        alert(brr[0].coursename)
+        for(var i=0;i<=brr.length;i++) {
+            $.post("/add", {
+                "coursename": brr[i].coursename,
+                "teacher": brr[i].teacher,
+                "time": brr[i].time,
+                "place": brr[i].place,
+                "credit": brr[i].credit
+            })
+        }
+    })
+
+        // var vals = brr.join(",");
+        // alert(brr[0]);
+
+    <!--$.ajax({-->
+        <!--type:"post",-->
+        <!--url:"/add",-->
+        <!--data:{"username":"/**/"},-->
+       <!--dataType:"json",-->
+        <!--async:true,-->
+        <!--success:function (data) {-->
+            <!--if(data.code == 200){-->
+                <!--alert(data.msg);-->
+            <!--}-->
+            <!--else {-->
+        <!--alert(data.msg);-->
+            <!--}-->
+        <!--}-->
+    <!--})-->
+    <!--});-->
+    </script>
+
+
+<footer>
+    <!--第四部分-->
+    <a href="#">
+        <img src="images/nav10.png" alt="">
+        <span style="color: black">选课</span>
+    </a>
+    <a href="#">
+        <img src="images/nav20.png" alt="">
+        <span>课程表</span>
+    </a>
+    <a href="#">
+        <img src="images/nav30.png" alt="">
+        <span>已选课程</span>
+    </a>
+    <a href="/myself">
+        <img src="images/nav50.png" alt="">
+        <span>我的资料</span>
+    </a>
+
+</footer>
+</body>
+</html>

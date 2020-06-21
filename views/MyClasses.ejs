@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>张冰</title>
+    <link rel="short icon" href="Resource/icon.png">
+    <link rel="stylesheet" href="ExternalStyle.css">
+    <style>
+        /*成行的标签写法：display:table width:需求值*/
+        ul{
+            display: table;
+            width:100%;
+            background: white;
+            height:100px;
+            margin-bottom:10px;
+        }
+        /*成列标签 display:table-cell; width;需求值*/
+        li{
+            display:table-cell;
+            width:16.6%;
+            text-align:center;
+            vertical-align: middle;
+            border: 1px solid gray;
+        }
+        .first_ul{
+            margin-top: -6px;
+        }
+        /*span{*/
+            /*border: 1px solid #ff0;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<!--1-->
+<header>
+    <span  style="width:100%;line-height:40px; margin-top: 10px">我的课表</span>
+</header>
+<!--2-->
+<section class="DS_second_section">
+    <ul>
+        <li>
+            <span></span>
+        <li>
+            <span>周一</span>
+        <li>
+            <span>周二</span>
+        <li>
+            <span>周三</span>
+        <li>
+            <span>周四</span>
+        <li>
+            <span>周五</span>
+    </ul>
+
+</section>
+<!--3-->
+<section >
+
+    <ul class="first_ul">
+        <li>
+            <span>1-2节</span>
+            <%  var i=11;for( i=11; i<=15; i++){ %>
+            <li>
+            <span ><%= lessons[i].coursename %></span><br>
+            <span ><%= lessons[i].teacher %></span><br>
+            <span ><%= lessons[i].place %></span>
+        <% } %>
+    </ul>
+    <ul>
+        <li>
+            <span>3-4节</span>
+            <%  var i=21;for( i=21; i<=25; i++){ %>
+        <li>
+            <span ><%= lessons[i].coursename %></span><br>
+            <span ><%= lessons[i].teacher %></span><br>
+            <span ><%= lessons[i].place %></span>
+            <% } %>
+    </ul>
+    <ul>
+        <li><span>5-6节</span>
+            <%  var i=31;for( i=31; i<=35; i++){ %>
+        <li>
+            <span ><%= lessons[i].coursename %></span><br>
+            <span ><%= lessons[i].teacher %></span><br>
+            <span ><%= lessons[i].place %></span>
+            <% } %>
+    </ul>
+    <ul>
+        <li>
+            <span>7-8节</span>
+            <%  var i=41;for( i=41; i<=45; i++){ %>
+        <li>
+            <span ><%= lessons[i].coursename %></span><br>
+            <span ><%= lessons[i].teacher %></span><br>
+            <span ><%= lessons[i].place %></span>
+            <% } %>
+    </ul>
+</section>
+</body>
+<html>

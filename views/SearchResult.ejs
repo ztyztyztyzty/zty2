@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>产品列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="style/adminStyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="wrap">
+    <div class="page-title">
+        <span class="modular fl"><i></i><em>课程列表</em></span>
+    </div>
+    <div class="operate">
+        <!--<form>-->
+        <input type="text" class="textBox length-long" id="SearchText" placeholder="输入课程名称..."/>
+        <input type="button" id="SearchButton" value="查询" class="tdBtn"/>
+        <!--</form>-->
+    </div>
+    <table class="list-style Interlaced">
+        <tr>
+            <th>课程名称</th>
+            <th>教师</th>
+            <th>上课地点</th>
+            <th>上课时间</th>
+            <th>学分</th>
+            <!--<th>精品</th>-->
+            <!--<th>新品</th>-->
+            <!--<th>热销</th>-->
+            <th>操作</th>
+        </tr>
+        <!--<tr>-->
+        <!--<td>-->
+        <!--<span>-->
+        <!--<input type="checkbox" class="middle children-checkbox"/>-->
+        <!--<i>0</i>-->
+        <!--</span>-->
+        <!--</td>-->
+        <!--<td class="center pic-area"><img src="#" class="thumbnail"/></td>-->
+        <!--<td class="td-name">-->
+        <!--<span class="ellipsis td-name block">这是产品或服务名称(宽度350px,样式自动截取，以省略号表示哦，程序可以处理“截取字符串”)</span>-->
+        <!--</td>-->
+        <!--<td class="center">-->
+        <!--<span>-->
+        <!--<i>￥</i>-->
+        <!--<em>0.00</em>-->
+        <!--</span>-->
+        <!--</td>-->
+        <!--<td class="center">-->
+        <!--<span>-->
+        <!--<i>￥</i>-->
+        <!--<em>0.00</em>-->
+        <!--</span>-->
+        <!--</td>-->
+        <!--<td class="center">-->
+        <!--<span>-->
+        <!--<em>589</em>-->
+        <!--<i>件</i>-->
+        <!--</span>-->
+        <!--</td>-->
+        <!--<td class="center">-->
+        <!--<a href="http://www.baidu.com/跳转至前台页面哦" title="查看" target="_blank"><img src="images/icon_view.gif"/></a>-->
+        <!--<a href="edit_product.html" title="编辑"><img src="images/icon_edit.gif"/></a>-->
+        <!--<a title="删除"><img src="images/icon_drop.gif"/></a>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <% for(var i=0; i<data.length; i++){ %>
+        <tr>
+            <td>
+     <span>
+      <%= data[i].name %>
+     </span>
+            </td>
+            <td class="td-name">
+                <span class="ellipsis td-name block"> <%= data[i].teacher %></span>
+            </td>
+            <td class="center">
+     <span>
+      <%= data[i].place %>
+     </span>
+            </td>
+            <td class="center">
+     <span>
+      <%= data[i].time %>
+     </span>
+            </td>
+            <td class="center">
+    <span>
+        <%= data[i].credit %>
+    </span>
+            </td>
+            <td class="center">
+                <a title="选课"><img src="images/icon_edit.gif"/></a>
+                <a title="退选"><img src="images/icon_drop.gif"/></a>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+    <!-- BatchOperation -->
+    <!-- turn page -->
+    <div class="turnPage center fr">
+        <a>第一页</a>
+        <a>1</a>
+        <a>最后一页</a>
+    </div>
+</div>
+</div>
+</body>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $("#SearchButton").click(function () {
+        if($("#SearchText").val()=="") location.href="/classes"
+        else {
+            $.post("/SearchClasses", {
+                "name": $("#SearchText").val()
+            }, function (info) {
+                location.href = "/SearchResult";
+            })
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>注册</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="style/adminStyle.css" rel="stylesheet" type="text/css" />
+ <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+ <div class="wrap">
+  <div class="page-title">
+    <span class="modular fl"><i class="user"></i><em>修改课程信息</em></span>
+  </div>
+  <table class="noborder">
+   <tr>
+    <td width="15%" style="text-align:right;">课程名称：</td>
+    <td><input type="text" id="name"  value="<%=arr.name%>"  class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">任课教师：</td>
+    <td><input type="text" id="teacher"  value="<%=arr.teacher%>" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">上课地点：</td>
+    <td><input type="text" id="place"   value="<%=arr.place%>" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">上课时间：</td>
+    <td><input type="text" id="time"  value="<%=arr.time%>" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">学分：</td>
+    <td><input type="text" id="credit" value="<%=arr.credit%>" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">所属学院：</td>
+    <td><input type="text" id="acd"  value="<%=arr.acd%>" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">年级：</td>
+    <td><input type="text" id="grade"  value="<%=arr.grade%>" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">坐标：</td>
+    <td><input type="text" id="location"  value="<%=arr.location%>" class="textBox length-middle"/>
+     <input hidden type="text" id="id"  value="<%=arr.id%>" class="textBox length-middle"/></td>
+
+   </tr>
+   <tr>
+    <td style="text-align:right;"></td>
+    <td><input type="button" id="submit" class="tdBtn" value="修改课程"/></td>
+   </tr>
+  </table>
+ </div>
+</body>
+<script>
+ $("#submit").click(function(){
+     $.post("/revise",{
+         "name":$("#name").val(),
+         "teacher":$("#teacher").val(),
+         "acd":$("#acd").val(),
+         "grade":$("#grade").val(),
+         "credit":$("#credit").val(),
+         "location":$("#location").val(),
+         "time":$("#time").val(),
+         "place":$("#place").val(),
+         "id":$("#id").val()
+     },function(info){
+         if(info==1) {
+             alert("修改成功");
+             location.href="/allclasses"
+         }
+         else {
+             alert("用户名重复")
+         }
+     })
+ })
+ </script>
+</html>

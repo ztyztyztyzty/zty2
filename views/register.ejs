@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>注册</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="style/adminStyle.css" rel="stylesheet" type="text/css" />
+ <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+ <div class="wrap">
+  <div class="page-title">
+    <span class="modular fl"><i class="user"></i><em>注册</em></span>
+  </div>
+  <table class="noborder">
+   <tr>
+    <td width="15%" style="text-align:right;">账号：</td>
+    <td><input type="text" id="account" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">密码：</td>
+    <td><input type="password" id="pw1" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">学院：</td>
+    <td><input type="text" id="acd" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">年级：</td>
+    <td><input type="text" id="grade" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">确认密码：</td>
+    <td><input type="password" id="pw2" class="textBox length-middle"/></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;"></td>
+    <td><input type="button" id="submit" class="tdBtn" value="注册"/></td>
+   </tr>
+  </table>
+ </div>
+</body>
+<script>
+ $("#submit").click(function(){
+     if($("#pw1").val()!=$("#pw2").val()){
+         alert("两次新密码输入不一致")
+     }
+     $.post("/register",{
+         "name":$("#account").val(),
+         "password":$("#pw1").val(),
+         "acd":$("#acd").val(),
+         "grade":$("#grade").val(),
+         "level":'0'
+     },function(info){
+         if(info==1) {
+             alert("注册成功");
+             location.href="/login"
+         }
+         else {
+             alert("用户名重复")
+         }
+     })
+ })
+ </script>
+</html>
